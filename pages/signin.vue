@@ -81,3 +81,9 @@
 
   const visible = ref(false)
 </script>
+
+<script>
+export default {
+    layout: "auth",
+}
+ </script>
