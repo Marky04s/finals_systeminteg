@@ -121,6 +121,7 @@ export default {
 <script>
 export default {
   layout: "auth",
+  middleware: 'guess',
   methods: {
     signInwithGoogle
   }
