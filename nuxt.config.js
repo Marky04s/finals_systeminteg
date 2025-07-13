@@ -1,57 +1,43 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - bsit3a-system-integ',
-    title: 'bsit3a-system-integ',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    titleTemplate: '%s - mrk',
+    title: 'mrk',
+    htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios' ,
+    '@nuxtjs/axios',
     '@nuxtjs/auth-next'
-    
   ],
 
-  axios:{
-    baseURL: 'http://localhost:3000',
-    credentials:true
+  axios: {
+    baseURL: 'http://localhost:8000', // Your backend API base URL
+    credentials: true
   },
 
   auth: {
+    //options
     redirect: {
       login: '/auth/signin',
       logout: '/auth/signin',
@@ -61,25 +47,27 @@ export default {
     autoFetchUser: false,
     strategies: {
       google: {
-        clientid: '641847352198-rh5fgad021sd4c4ilj6ljengo22pde1a.apps.googleusercontent.com',
+        clientId: '641847352198-rh5fgad021sd4c4ilj6ljengo22pde1a.apps.googleusercontent.com',
         scheme: 'oauth2',
         endpoints: {
-          authorization: "https://accounts.google.com/o/oauth2/auth",
-          userInfo: "https://www.googleapis.com/oauth2/v3/userinfo",
+          authorization: 'https://accounts.google.com/o/oauth2/auth',  
+          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo'   
         },
         token: {
           property: "access_token",
           type: "Bearer",
           maxAge: 1800,
         },
-        responseType:"token id_token",
-        redirectUrl: "http://localhost:3000/auth/callback",
-        codeChallengeMethod: ""
-        }
+        responseType: "token id_token",
+        scope: ["openid","profile","email"],
+        redirectUri: 'http://localhost:3000/auth/callback', // Must match your Google Cloud redirect URI
+        codeChallengeMethod: '', // Or 'S256' if supported by your backend
       }
-    },
+    }
+  },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
+
+
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -98,7 +86,5 @@ export default {
     }
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {}
 }
