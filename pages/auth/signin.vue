@@ -42,6 +42,7 @@
         block
         @click="signInWithGoogle()"
       >
+      
         Sign in with Google
       </v-btn>
     </v-card>
