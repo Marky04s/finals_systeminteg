@@ -36,19 +36,20 @@ export default {
       return
     }
 
+    // ✅ Use arrow function to preserve "this"
     const onScanSuccess = (decodedText) => {
       console.log("Camera QR Code Scanned:", decodedText)
-
       this.scannedText = decodedText
 
-      // Emit to parent instead of redirecting here
+      // ✅ Emit to parent to handle redirect
       this.$emit('scan-success', decodedText)
 
-      // Optionally stop scanner
-      this.qrScanner.clear()
+      this.qrScanner.clear() // Optional: stop scanning after success
     }
 
-    const onScanFailure = () => {}
+    const onScanFailure = error => {
+      // You can log scan failures here if needed
+    }
 
     this.qrScanner = new this.$Html5QrcodeScanner(
       "reader",
@@ -64,6 +65,7 @@ export default {
       const file = e.target.files[0]
       if (!file) return
 
+      // Clear camera scanner before scanning file
       if (this.qrScanner) {
         await this.qrScanner.clear()
       }
@@ -73,6 +75,8 @@ export default {
         const result = await html5QrCode.scanFile(file, true)
         console.log("Image QR Code Scanned:", result)
         this.scannedText = result
+
+        // ✅ Emit result from file upload scan
         this.$emit('scan-success', result)
       } catch (err) {
         console.error("Failed to scan image:", err)
