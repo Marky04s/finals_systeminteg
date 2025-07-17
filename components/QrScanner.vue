@@ -32,20 +32,23 @@ export default {
 
   mounted() {
     if (!this.$Html5QrcodeScanner || !this.$Html5Qrcode) {
-      console.error("❌ html5-qrcode plugin not loaded")
+      console.error("html5-qrcode plugin not loaded")
       return
     }
 
-    // CAMERA SCANNER
-    const onScanSuccess = (decodedText, decodedResult) => {
-      console.log("✅ Camera QR Code Scanned:", decodedText)
+    const onScanSuccess = (decodedText) => {
+      console.log("Camera QR Code Scanned:", decodedText)
+
       this.scannedText = decodedText
-      this.qrScanner.clear() // Optional: stop after success
+
+      // Emit to parent instead of redirecting here
+      this.$emit('scan-success', decodedText)
+
+      // Optionally stop scanner
+      this.qrScanner.clear()
     }
 
-    const onScanFailure = error => {
-      // You can ignore failures or log them
-    }
+    const onScanFailure = () => {}
 
     this.qrScanner = new this.$Html5QrcodeScanner(
       "reader",
@@ -61,7 +64,6 @@ export default {
       const file = e.target.files[0]
       if (!file) return
 
-      // CLEAR CAMERA SCANNER BEFORE SCANNING FILE
       if (this.qrScanner) {
         await this.qrScanner.clear()
       }
@@ -69,10 +71,11 @@ export default {
       const html5QrCode = new this.$Html5Qrcode("reader")
       try {
         const result = await html5QrCode.scanFile(file, true)
-        console.log("✅ Image QR Code Scanned:", result)
+        console.log("Image QR Code Scanned:", result)
         this.scannedText = result
+        this.$emit('scan-success', result)
       } catch (err) {
-        console.error("❌ Failed to scan image:", err)
+        console.error("Failed to scan image:", err)
       }
     }
   },

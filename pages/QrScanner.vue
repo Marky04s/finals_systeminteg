@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Scan Your QR Code</h2>
-    <QrScanner />
+    <QrScanner @scan-success="handleScanSuccess" />
   </div>
 </template>
 
@@ -9,6 +9,16 @@
 import QrScanner from '~/components/QrScanner.vue'
 
 export default {
-  components: { QrScanner }
+  components: { QrScanner },
+  methods: {
+    handleScanSuccess(scannedData) {
+      // Open scanned QR data in new tab if it's a valid link
+      if (scannedData.startsWith('http')) {
+        window.open(scannedData, '_blank')
+      } else {
+        alert('Scanned text is not a valid URL:\n' + scannedData)
+      }
+    }
+  }
 }
 </script>
