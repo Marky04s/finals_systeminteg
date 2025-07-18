@@ -62,7 +62,7 @@ export default {
         },
         responseType: "token id_token",
         scope: ["openid","profile","email"],
-        redirectUri: 'http://localhost:3000/auth/callback', // Must match your Google Cloud redirect URI
+        redirectUri: process.env.REDIRECT_URI,
         codeChallengeMethod: '', // Or 'S256' if supported by your backend
       }
     }
