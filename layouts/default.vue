@@ -108,6 +108,11 @@ export default {
           icon: 'mdi-bar',
           title: 'Scanner',
           to: '/QrScanner'
+        },
+        {
+          icon: 'mdi-bar',
+          title: 'Face Detector',
+          to: '/face'
         }
 
         

@@ -19,7 +19,8 @@ export default {
   css: [],
 
   plugins: [
-    '~/plugins/html5qrcode.client.js'
+     '~/plugins/html5qrcode.client.js',
+  { src: '~/plugins/faceapi.client.js', mode: 'client' }
   ],
 
   components: true,
