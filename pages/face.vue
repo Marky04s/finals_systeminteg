@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Face Detection Page</h2>
+    <h2></h2>
     <FaceDetector />
   </div>
 </template>

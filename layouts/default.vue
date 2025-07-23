@@ -105,12 +105,12 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-bar',
-          title: 'Scanner',
+          icon: 'mdi-qrcode',
+          title: 'Qr code Scanner',
           to: '/QrScanner'
         },
         {
-          icon: 'mdi-bar',
+          icon: 'mdi-face-recognition',
           title: 'Face Detector',
           to: '/face'
         }
